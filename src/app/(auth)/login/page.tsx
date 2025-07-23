@@ -67,13 +67,13 @@ function LoginPage() {
           </button>
         </form>
         <div className="flex justify-between items-center mt-2">
-          <a
-            href="#"
+          <Link
+            href={`/forgot-password`}
             className="text-sm font-bold text-amber-600 hover:underline focus:underline focus:outline-none transition"
             tabIndex={0}
           >
             Forgot password?
-          </a>
+          </Link>
           <div className="flex items-center">
             <span className="text-sm text-gray-600 dark:text-gray-300">
               Don't have an account?
