@@ -78,7 +78,7 @@ const Page = async ({
   );
 
   return (
-    <div className="container mx-auto px-20 pb-20 pt-36">
+    <div className="min-h-screen w-full mx-auto px-20 pb-20 pt-36">
       <div className="mb-10 flex items-center justify-between">
         <h1 className="text-3xl font-bold">All Questions</h1>
         <Link href="/questions/ask">
