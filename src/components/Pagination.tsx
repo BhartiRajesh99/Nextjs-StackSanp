@@ -14,7 +14,7 @@ const Pagination = ({
 }) => {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || "1";
-  const totalPages = Math.ceil(total / limit);
+  const totalPages = Math.ceil((total===0 ? 1 : total) / limit);
   const router = useRouter();
   const pathnanme = usePathname();
 

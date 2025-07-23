@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const user: any = useAuthStore((state) => state.user);
 
   return (
-    <div className=" space-y-4 px-4 pb-20 pt-32">
+    <div className="min-h-screen space-y-4 px-4 pb-20 pt-32">
       <div className="flex flex-col gap-4 sm:flex-row">
         <div className="w-40 shrink-0">
           <picture className="block w-full">
