@@ -7,13 +7,20 @@ import Link from "next/link";
 import { Query } from "node-appwrite";
 import React from "react";
 
+interface PageProps {
+  params: {
+    userId: string;
+    userSlug: string;
+  };
+  searchParams: {
+    page: string;
+  };
+}
+
 const Page = async ({
   params,
   searchParams,
-}: {
-  params: { userId: string; userSlug: string };
-  searchParams: { page?: string };
-}) => {
+}: PageProps) => {
   searchParams.page ||= "1";
 
   const queries = [

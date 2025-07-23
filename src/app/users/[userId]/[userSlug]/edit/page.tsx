@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore, UserPrefs } from "@/store/Auth";
 
 const EditPage = () => {
-  const {setUser, refreshUser} = useAuthStore()
+  const {setUser} = useAuthStore()
   const router = useRouter()
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");

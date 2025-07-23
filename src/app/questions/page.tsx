@@ -14,11 +14,17 @@ import { UserPrefs } from "@/store/Auth";
 import Pagination from "@/components/Pagination";
 import Search from "./Search";
 
+interface PageProps {
+  searchParams: {
+    page: string;
+    tag: string;
+    search: string;
+  };
+}
+
 const Page = async ({
   searchParams,
-}: {
-  searchParams: { page?: string; tag?: string; search?: string };
-}) => {
+}: PageProps) => {
 
   searchParams.page ||= "1";
 

@@ -12,13 +12,21 @@ import Link from "next/link";
 import { Query } from "node-appwrite";
 import React from "react";
 
+interface PageProps {
+  params: {
+    userId: string;
+    userSlug: string;
+  };
+  searchParams: {
+    page: string;
+    voteStatus: string;
+  };
+}
+
 const Page = async ({
   params,
   searchParams,
-}: {
-  params: { userId: string; userSlug: string };
-  searchParams: { page?: string; voteStatus?: "upvoted" | "downvoted" };
-}) => {
+}: PageProps) => {
   searchParams.page ||= "1";
 
   const query = [
