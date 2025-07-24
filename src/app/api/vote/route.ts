@@ -19,7 +19,6 @@ export async function POST(request: NextRequest) {
       Query.equal("typeId", typeId),
       Query.equal("votedById", votedById),
     ]);
-
     if (response.documents.length > 0) {
       await databases.deleteDocument(
         db,
@@ -38,9 +37,9 @@ export async function POST(request: NextRequest) {
       );
       await users.updatePrefs<UserPrefs>(QuestionOrAnswer.authorId, {
         reputation:
-          response.documents[0].voteStatus === "upvoted"
-            ? Number(authorPrefs.reputation) - 1
-            : Number(authorPrefs.reputation) + 1,
+          Number(authorPrefs.reputation) === 0
+            ? 0
+            : Number(authorPrefs.reputation) - 1,
       });
     }
 
@@ -73,7 +72,9 @@ export async function POST(request: NextRequest) {
           reputation:
             // prev vote was 'upvoted' and new value is 'downvoted' so we have to decrease the reputation
             response.documents[0].voteStatus === "upvoted"
-              ? Number(authorPrefs.reputation) - 1
+              ? Number(authorPrefs.reputation) === 0
+                ? 0
+                : Number(authorPrefs.reputation) - 1
               : Number(authorPrefs.reputation) + 1,
         });
       } else {
@@ -81,8 +82,10 @@ export async function POST(request: NextRequest) {
           reputation:
             //prev vote was 'upvoted' and new value is 'downvoted' so we have to decrease the reputation
             voteStatus === "upvoted"
-              ? Number(authorPrefs.reputation) - 1
-              : Number(authorPrefs.reputation) + 1,
+              ? Number(authorPrefs.reputation) + 1
+              : Number(authorPrefs.reputation) === 0
+              ? 0
+              : Number(authorPrefs.reputation) - 1,
         });
       }
 
@@ -107,7 +110,8 @@ export async function POST(request: NextRequest) {
         {
           data: {
             document: doc,
-            voteResult: upvotes.total - downvotes.total,
+            upvotes: upvotes.total,
+            downvotes: downvotes.total,
           },
           message: response.documents[0] ? "Vote Status Updated" : "Voted",
         },
@@ -136,7 +140,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        data: { document: null, voteResult: upvotes.total - downvotes.total },
+        data: {
+          document: null,
+          upvotes: upvotes.total,
+          downvotes: downvotes.total,
+        },
         message: "vote handled",
       },
       { status: 200 }

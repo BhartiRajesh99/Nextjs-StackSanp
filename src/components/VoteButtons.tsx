@@ -4,7 +4,7 @@ import { databases } from "@/models/client/config";
 import { db, voteCollection } from "@/models/name";
 import { useAuthStore } from "@/store/Auth";
 import { cn } from "@/lib/utils";
-import { IconCaretUpFilled, IconCaretDownFilled } from "@tabler/icons-react";
+import { IconThumbUpFilled, IconThumbDownFilled } from "@tabler/icons-react";
 import { Models, Query } from "appwrite";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -25,10 +25,9 @@ const VoteButtons = ({
 }) => {
   const [votedDocument, setVotedDocument] =
     React.useState<Models.Document | null>(); // undefined means not fetched yet
-  const [voteResult, setVoteResult] = React.useState<number>(
-    upvotes.total - downvotes.total
-  );
-
+  const [upVotes, setUpVotes] = React.useState<number>(upvotes.total);
+  const [downVotes, setDownVotes] = React.useState<number>(downvotes.total);
+  React.useState<number>(downvotes.total);
   const { user } = useAuthStore();
   const router = useRouter();
 
@@ -64,8 +63,8 @@ const VoteButtons = ({
       const data = await response.json();
 
       if (!response.ok) throw data;
-
-      setVoteResult(() => data.data.voteResult);
+      setUpVotes(data.data.upvotes);
+      setDownVotes(data.data.downvotes);
       setVotedDocument(() => data.data.document);
     } catch (error: any) {
       toast.error(error?.message || "Something went wrong");
@@ -91,8 +90,8 @@ const VoteButtons = ({
       const data = await response.json();
 
       if (!response.ok) throw data;
-
-      setVoteResult(() => data.data.voteResult);
+      setDownVotes(data.data.downvotes);
+      setUpVotes(data.data.upvotes);
       setVotedDocument(() => data.data.document);
     } catch (error: any) {
       toast.error(error?.message || "Something went wrong");
@@ -106,29 +105,34 @@ const VoteButtons = ({
         className
       )}
     >
-      <button
-        className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-full border p-1 duration-200 hover:bg-white/10",
-          votedDocument && votedDocument.voteStatus === "upvoted"
-            ? "border-orange-500 text-orange-500"
-            : "border-white/30"
-        )}
-        onClick={toggleUpvote}
-      >
-        <IconCaretUpFilled />
-      </button>
-      <span>{voteResult}</span>
-      <button
-        className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-full border p-1 duration-200 hover:bg-white/10",
-          votedDocument && votedDocument.voteStatus === "downvoted"
-            ? "border-orange-500 text-orange-500"
-            : "border-white/30"
-        )}
-        onClick={toggleDownvote}
-      >
-        <IconCaretDownFilled />
-      </button>
+      <div className="flex flex-col justify-center items-center gap-1">
+        <button
+          className={cn(
+            "flex h-10 w-10 items-center justify-center rounded-full border p-1 duration-200 hover:bg-white/10",
+            votedDocument && votedDocument.voteStatus === "upvoted"
+              ? "border-orange-500 text-orange-500"
+              : "border-white/30"
+          )}
+          onClick={toggleUpvote}
+        >
+          <IconThumbUpFilled />
+        </button>
+        <span>{upVotes}</span>
+      </div>
+      <div className="flex flex-col justify-center items-center gap-1">
+        <button
+          className={cn(
+            "flex h-10 w-10 items-center justify-center rounded-full border p-1 duration-200 hover:bg-white/10",
+            votedDocument && votedDocument.voteStatus === "downvoted"
+              ? "border-orange-500 text-orange-500"
+              : "border-white/30"
+          )}
+          onClick={toggleDownvote}
+        >
+          <IconThumbDownFilled />
+        </button>
+        <span>{downVotes}</span>
+      </div>
     </div>
   );
 };
