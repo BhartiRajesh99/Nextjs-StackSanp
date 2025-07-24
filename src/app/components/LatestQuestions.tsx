@@ -49,7 +49,7 @@ export const LatestQuestions = () => {
       );
       setQues(questions.documents);
     })();
-  }, [ques, setQues]);
+  }, []);
 
   return (
     <div className="space-y-6">
