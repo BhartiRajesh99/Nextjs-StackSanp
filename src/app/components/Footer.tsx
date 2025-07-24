@@ -3,6 +3,12 @@ import React from "react";
 import { Boxes } from "../../components/ui/background-boxes";
 
 export function Footer() {
+  const [year, setYear] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   const items = [
     {
       title: "Home",
@@ -32,7 +38,7 @@ export function Footer() {
         ))}
       </div>
       <div className="mt-4 relative text-center text-neutral-300">
-        &copy; {new Date().getFullYear()} SnapShot
+        &copy; {year ? year : ""} SnapShot
       </div>
     </div>
   );

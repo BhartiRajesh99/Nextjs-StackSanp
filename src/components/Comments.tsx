@@ -10,6 +10,7 @@ import { IconTrash } from "@tabler/icons-react";
 import { ID, Models } from "appwrite";
 import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
 
 const Comments = ({
   comments: _comments,
@@ -49,7 +50,7 @@ const Comments = ({
         documents: [{ ...response, author: user }, ...prev.documents],
       }));
     } catch (error: any) {
-      window.alert(error?.message || "Error creating comment");
+      toast.error(error?.message || "Error creating comment");
     }
   };
 
@@ -64,7 +65,7 @@ const Comments = ({
         ),
       }));
     } catch (error: any) {
-      window.alert(error?.message || "Error deleting comment");
+      toast.error(error?.message || "Error deleting comment");
     }
   };
 

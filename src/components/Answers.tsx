@@ -1,16 +1,16 @@
 "use client";
 
-import { ID, Models } from "appwrite";
+import { Models } from "appwrite";
 import React from "react";
 import VoteButtons from "./VoteButtons";
 import { useAuthStore } from "@/store/Auth";
-import { avatars, databases } from "@/models/client/config";
-import { answerCollection, db } from "@/models/name";
+import { avatars } from "@/models/client/config";
 import RTE, { MarkdownPreview } from "./RTE";
 import Comments from "./Comments";
 import slugify from "@/utils/slugify";
 import Link from "next/link";
 import { IconTrash } from "@tabler/icons-react";
+import toast from "react-hot-toast";
 
 const Answers = ({
   answers: _answers,
@@ -56,7 +56,7 @@ const Answers = ({
         ],
       }));
     } catch (error: any) {
-      window.alert(error?.message || "Error creating answer");
+      toast.error(error?.message || "Error creating answer");
     }
   };
 
@@ -78,7 +78,7 @@ const Answers = ({
         documents: prev.documents.filter((answer) => answer.$id !== answerId),
       }));
     } catch (error: any) {
-      window.alert(error?.message || "Error deleting answer");
+      toast.error(error?.message || "Error deleting answer");
     }
   };
 
