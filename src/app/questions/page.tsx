@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { databases, users } from "@/models/server/config";
 import {
   answerCollection,
@@ -8,7 +10,7 @@ import {
 import { Query } from "node-appwrite";
 import React from "react";
 import Link from "next/link";
-import {ShimmerButton} from "@/components/magicui/shimmer-button";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import QuestionCard from "@/components/QuestionCard";
 import { UserPrefs } from "@/store/Auth";
 import Pagination from "@/components/Pagination";
@@ -22,10 +24,7 @@ interface PageProps {
   };
 }
 
-const Page = async ({
-  searchParams,
-}: PageProps) => {
-
+const Page = async ({ searchParams }: PageProps) => {
   searchParams.page ||= "1";
 
   const queries = [

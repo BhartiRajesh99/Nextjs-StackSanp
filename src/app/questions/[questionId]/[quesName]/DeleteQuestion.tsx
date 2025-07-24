@@ -21,7 +21,7 @@ const DeleteQuestion = ({
   const deleteQuestion = async () => {
     try {
       await databases.deleteDocument(db, questionCollection, questionId);
-      router.refresh()
+      
       toast.success("Question deleted")
       router.push("/questions");
     } catch (error: any) {
