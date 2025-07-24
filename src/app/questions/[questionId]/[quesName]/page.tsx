@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Answers from "@/components/Answers";
 import Comments from "@/components/Comments";
 import { MarkdownPreview } from "@/components/RTE";
@@ -31,9 +33,7 @@ interface PageProps {
   };
 }
 
-const Page = async ({
-  params,
-}: PageProps) => {
+const Page = async ({ params }: PageProps) => {
   const [question, answers, upvotes, downvotes, comments] = await Promise.all([
     databases.getDocument(db, questionCollection, params.questionId),
     databases.listDocuments(db, answerCollection, [
