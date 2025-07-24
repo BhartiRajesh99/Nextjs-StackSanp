@@ -6,7 +6,8 @@ import {
   questionCollection,
   voteCollection,
 } from "@/models/name";
-import { databases, users } from "@/models/server/config";
+import { databases } from "@/models/client/config";
+import { users } from "@/models/server/config";
 import { UserPrefs } from "@/store/Auth";
 import { Models, Query } from "node-appwrite";
 import React from "react";
