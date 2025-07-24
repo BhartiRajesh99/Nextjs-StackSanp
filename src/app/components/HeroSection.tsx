@@ -9,7 +9,8 @@
 // import slugify from "@/utils/slugify";
 // import { storage } from "@/models/client/config";
 
-import React from "react";
+export const dynamic = "force-dynamic";
+
 import HeroSectionHeader from "./HeroSectionHeader";
 import { Footer } from "./Footer";
 import { LatestQuestions } from "./LatestQuestions";
